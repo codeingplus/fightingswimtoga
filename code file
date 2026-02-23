@@ -1,0 +1,118 @@
+import toga
+from toga.style import Pack
+from toga.style.pack import COLUMN, CENTER
+import asyncio
+
+class SwimApp(toga.App):
+
+    def startup(self):
+        self.main_window = toga.MainWindow(title="Yalova Olimpik Spor Kulübü")
+        
+        # Logo alanı (şimdilik yazı)
+        self.logo_label = toga.Label(
+            "LOGO BURAYA",
+            style=Pack(text_align=CENTER, font_size=24)
+        )
+
+        # Başlık
+        self.title_label = toga.Label(
+            "Yalova Olimpik Spor Kulübü",
+            style=Pack(text_align=CENTER, font_size=20, padding=(10,0))
+        )
+
+        # Giriş alanları
+        self.athlete_count_input = toga.TextInput(placeholder='Sporcu sayısı')
+        self.distance_input = toga.TextInput(placeholder='Mesafe (metre)')
+        self.style_input = toga.TextInput(placeholder='Yüzme stili')
+        self.interval_input = toga.TextInput(placeholder='Sporcular arası başlama (saniye)')
+        self.prep_time_input = toga.TextInput(placeholder='Hazırlık süresi (saniye veya dk)')
+        self.swim_time_input = toga.TextInput(placeholder='Yüzme süresi (saniye veya dk)')
+        self.rest_time_input = toga.TextInput(placeholder='Dinlenme süresi (saniye veya dk)')
+        self.rounds_input = toga.TextInput(placeholder='Tur sayısı')
+
+        # Sayaç ve renk göstergesi
+        self.counter_label = toga.Label(
+            "00:00",
+            style=Pack(text_align=CENTER, font_size=40, padding=(20,0))
+        )
+
+        # Fight Me butonu
+        self.start_button = toga.Button(
+            "FIGHT ME",
+            on_press=self.start_routine,
+            style=Pack(padding=10, font_size=18)
+        )
+
+        # Tüm bileşenleri yerleştirme
+        input_box = toga.Box(
+            children=[
+                self.athlete_count_input,
+                self.distance_input,
+                self.style_input,
+                self.interval_input,
+                self.prep_time_input,
+                self.swim_time_input,
+                self.rest_time_input,
+                self.rounds_input
+            ],
+            style=Pack(direction=COLUMN, padding=10)
+        )
+
+        main_box = toga.Box(
+            children=[
+                self.logo_label,
+                self.title_label,
+                input_box,
+                self.start_button,
+                self.counter_label
+            ],
+            style=Pack(direction=COLUMN, alignment=CENTER, padding=10)
+        )
+
+        self.main_window.content = main_box
+        self.main_window.show()
+
+    async def countdown(self, total_seconds, color):
+        for remaining in range(total_seconds, 0, -1):
+            minutes = remaining // 60
+            seconds = remaining % 60
+            self.counter_label.text = f"{minutes:02d}:{seconds:02d}"
+            self.main_window.background_color = color
+            await asyncio.sleep(1)
+        self.counter_label.text = "00:00"
+
+    def start_routine(self, widget):
+        # Giriş değerlerini al
+        try:
+            athlete_count = int(self.athlete_count_input.value)
+            prep_time = int(self.prep_time_input.value)
+            swim_time = int(self.swim_time_input.value)
+            rest_time = int(self.rest_time_input.value)
+            rounds = int(self.rounds_input.value)
+        except Exception as e:
+            self.counter_label.text = "Lütfen tüm değerleri doğru girin!"
+            return
+
+        # Asenkron döngü başlat
+        asyncio.create_task(self.run_intervals(athlete_count, prep_time, swim_time, rest_time, rounds))
+
+    async def run_intervals(self, athlete_count, prep_time, swim_time, rest_time, rounds):
+        for round_num in range(1, rounds+1):
+            # Sarı: hazırlık
+            await self.countdown(prep_time, 'yellow')
+            
+            # Yeşil: yüzme
+            await self.countdown(swim_time, 'green')
+            
+            # Siyah: tur devam ediyor
+            await self.countdown(swim_time, 'black')
+            
+            # Kırmızı: dinlenme
+            await self.countdown(rest_time, 'red')
+
+def main():
+    return SwimApp("Yalova Olimpik Spor Kulübü", "org.yalova.swim")
+
+if __name__ == '__main__':
+    app = main()
+    app.main_loop()
