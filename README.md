@@ -1,2 +1,5 @@
 # fightingswimtoga
-Yalova Olimpik Spor Kulübü için geliştirilen bu yüzme sayacı uygulaması, Python ve Toga ile hazırlanmış pratik bir antrenman yönetim aracıdır. Sporcu sayısı, hazırlık, yüzme ve dinlenme süreleri ile tur sayısı girilerek interval akışı otomatik yönetilir. Renkli geri sayım ekranı sayesinde süreç net, düzenli ve kolay takip edilir.
+This swimming counter application, developed for Yalova Olympic Sports Club, is a practical training management tool created with Python and Toga. The interval flow is automatically managed by entering the number of athletes, preparation, swimming, and rest times, as well as the number of laps. Thanks to the colorful countdown screen, the process is clear,
+
+
+---
