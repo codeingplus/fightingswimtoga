@@ -1,0 +1,85 @@
+Installation and Setup Guide
+
+This project is designed to run in a desktop environment. In order for the application to launch correctly, certain dependencies must be installed on your system and the project folder structure must be created properly. Please follow the steps below carefully.
+
+1. Required Software Installation
+
+Before running the project, make sure the following software is installed on your computer:
+
+Python
+
+Toga library
+
+If Python is not installed on your system, download and install it from the official website. After completing the installation, you need to install the Toga library by entering the following command into your command prompt or terminal:
+
+pip install toga
+
+This command will install all necessary components required for the graphical user interface of the application.
+
+2. Creating the Project Folder
+
+After installing the required software, you need to create a new folder anywhere on your computer (for example, on your Desktop).
+
+Example folder name:
+
+fightingswimtoga
+
+This folder will act as the main directory of the project, and all project files will be stored inside it.
+
+3. Creating the Main Python File
+
+Navigate into the folder you just created and create a new text file.
+
+Steps:
+
+Right-click inside the folder
+
+Select New → Text Document
+
+Rename the file as:
+
+main.py
+
+Open this file and paste the Python code provided in the code section into it.
+This file will serve as the main application file that runs the project.
+
+4. Creating the Resources Folder
+
+To ensure that assets such as logos are loaded correctly within the application, you need to create an additional folder inside the main project directory.
+
+Inside the main project folder:
+
+Right-click
+
+Select New → Folder
+
+Name the folder exactly as:
+
+resources
+
+Make sure that the folder name is written entirely in lowercase letters.
+
+5. Adding the Logo File
+
+Place your logo file inside the resources folder that you created.
+
+Your final folder structure should look like this:
+
+fightingswimtoga
+│
+├── main.py
+│
+└── resources
+    └── logo.png
+
+Ensure that the logo file extension is correct and matches the filename specified in your code.
+
+6. Running the Application
+
+Once all steps are completed, open your command prompt or terminal and navigate to the project directory. Then run the following command:
+
+python main.py
+
+If all steps were followed correctly, the application should launch without any issues.
+
+If you encounter any errors during installation, it is recommended to double-check the folder structure and file names. Most common issues are caused by incorrect folder naming or missing library installations.
